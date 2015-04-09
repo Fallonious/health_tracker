@@ -40,13 +40,11 @@ class StepCountsController < ApplicationController
   # PATCH/PUT /step_counts/1
   # PATCH/PUT /step_counts/1.json
   def update
-    respond_to do |format|
+
       if @step_count.update(step_count_params)
-        format.html { redirect_to @step_count, notice: 'Step count was successfully updated.' }
-        format.json { render :show, status: :ok, location: @step_count }
+        redirect_to @step_count, notice: 'Step count was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @step_count.errors, status: :unprocessable_entity }
+        render :edit
       end
     end
   end
@@ -61,14 +59,13 @@ class StepCountsController < ApplicationController
     end
   end
 
-  private
+
     # Use callbacks to share common setup or constraints between actions.
-    def set_step_count
+    private def set_step_count
       @step_count = StepCount.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def step_count_params
+    private def step_count_params
       params.require(:step_count).permit(:taken_on, :step_count)
     end
-end
